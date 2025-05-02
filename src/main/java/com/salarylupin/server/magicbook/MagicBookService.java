@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MagicBookService {
 
-    public String getRandomAnswer() {
-        return "Random answer";
+    public MagicBookResponseDTO getRandomAnswer() {
+        return new MagicBookResponseDTO("Random answer");
     }
 }

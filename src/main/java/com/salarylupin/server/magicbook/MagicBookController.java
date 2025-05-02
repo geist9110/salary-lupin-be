@@ -13,7 +13,7 @@ public class MagicBookController {
     private final MagicBookService magicBookService;
 
     @GetMapping("/answer")
-    public String magicBook() {
+    public MagicBookResponseDTO magicBook() {
         return magicBookService.getRandomAnswer();
     }
 }

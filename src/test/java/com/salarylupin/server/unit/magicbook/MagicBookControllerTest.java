@@ -1,12 +1,15 @@
 package com.salarylupin.server.unit.magicbook;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.salarylupin.server.magicbook.MagicBookController;
 import com.salarylupin.server.magicbook.MagicBookResponseDTO;
@@ -18,7 +21,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(MagicBookController.class)
 @AutoConfigureRestDocs(outputDir = "build/generated-snippets")
@@ -44,13 +47,22 @@ class MagicBookControllerTest {
         when(magicBookService.getRandomAnswer())
             .thenReturn(expect);
 
-        ResultActions result = mockMvc.perform(get("/magic-book/answer"));
-
         // then
-        result.andExpectAll(
-            status().isOk(),
-            content().contentType(APPLICATION_JSON),
-            content().json(objectMapper.writeValueAsString(expect))
-        ).andDo(document("magicbook-answer"));
+        MvcResult result = mockMvc.perform(get("/magic-book/answer")).andExpectAll(
+                status().isOk(),
+                content().contentType(APPLICATION_JSON),
+                jsonPath("$.success").value(true),
+                jsonPath("$.timestamp").exists()
+            ).andDo(document("magicbook-answer"))
+            .andReturn();
+
+        String actualData = result.getResponse().getContentAsString();
+        JsonNode jsonNode = objectMapper.readTree(actualData).get("data");
+        MagicBookResponseDTO actual = objectMapper.treeToValue(
+            jsonNode,
+            MagicBookResponseDTO.class
+        );
+
+        assertEquals(expect, actual);
     }
 }

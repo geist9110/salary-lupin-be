@@ -1,0 +1,20 @@
+= Salary Lupin API 문서
+:toc: left
+:toclevels: 2
+:icons: font
+:source-highlighter: highlightjs
+:sectanchors:
+
+== 마법의 고민책
+
+=== GET /magic-book/answer
+
+마법의 책에서 랜덤한 답변을 하나 가져옵니다.
+
+==== 요청
+
+include::{snippets}/magicbook-answer/http-request.adoc[]
+
+==== 응답
+
+include::{snippets}/magicbook-answer/http-response.adoc[]

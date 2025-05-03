@@ -18,6 +18,10 @@ public class MagicBookAnswerEntity {
 
     String answer;
 
+    public String getAnswer() {
+        return answer;
+    }
+
     public MagicBookAnswerEntity(String answer) {
         this.answer = answer;
     }

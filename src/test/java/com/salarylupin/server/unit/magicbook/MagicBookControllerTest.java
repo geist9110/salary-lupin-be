@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest(MagicBookController.class)
 @AutoConfigureRestDocs(outputDir = "build/generated-snippets")
-@DisplayName("마법의 고민해결 책")
+@DisplayName("[마법의 고민해결 책] Controller")
 class MagicBookControllerTest {
 
     @Autowired

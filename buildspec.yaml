@@ -34,5 +34,4 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $ECR_REPO_URI:$IMAGE_TAG
-      - printf '[ { "name":
-          $CONTAINER_NAME,"imageUri": "%s" } ]' $ECR_REPO_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $ECR_REPO_URI:$IMAGE_TAG > imagedefinitions.json

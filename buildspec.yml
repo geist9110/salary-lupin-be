@@ -25,3 +25,4 @@ artifacts:
   files:
     - output/app.jar
     - scripts/**/*
+    - appspec.yml

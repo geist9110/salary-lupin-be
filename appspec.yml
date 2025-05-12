@@ -7,6 +7,11 @@ files:
     destination: /home/ec2-user/scripts
 
 hooks:
+  ApplicationStart:
+    - location: scripts/init.sh
+      timeout: 20
+      runas: root
+
   ApplicationStop:
     - location: scripts/stop.sh
       timeout: 20

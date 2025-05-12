@@ -3,7 +3,6 @@ version: 0.2
 env:
   variables:
     SPRING_PROFILES_ACTIVE: prod
-    CONTAINER_NAME: ""
     DB_URL: ""
     DB_USERNAME: ""
     DB_PASSWORD: ""
@@ -25,3 +24,4 @@ phases:
 artifacts:
   files:
     - output/app.jar
+    - scripts/**/*

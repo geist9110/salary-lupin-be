@@ -4,17 +4,19 @@ APP_DIR=/home/ec2-user/app
 LOG_DIR=$APP_DIR/logs
 JAR_PATH=$APP_DIR/app.jar
 
-echo "===== START SCRIPT ====="
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
 
-INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-echo "INSTANCE ID: $INSTANCE_ID"
+INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/instance-id)
 
-aws ec2 describe-tags \
-  --region ap-northeast-2 \
+ENV=$(aws ec2 describe-tags \
   --filters "Name=resource-id,Values=$INSTANCE_ID" "Name=key,Values=env" \
-  --query "Tags[0].Value" --output text
+  --region ap-northeast-2 \
+  --query "Tags[0].Value" \
+  --output text)
 
-echo "ENVIRONMENT: $ENVIRONMENT"
+echo "ENVIRONMENT: $ENV"
 
 PARAM_PREFIX="/salary-lupin/${ENV}"
 

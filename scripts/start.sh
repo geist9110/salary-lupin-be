@@ -40,6 +40,10 @@ SECRET_JSON=$(aws secretsmanager get-secret-value \
 DB_USERNAME=$(echo "$SECRET_JSON" | jq -r .username)
 DB_PASSWORD=$(echo "$SECRET_JSON" | jq -r .password)
 
+echo "DB_URL=$DB_URL"
+echo "DB_USERNAME=$DB_USERNAME"
+echo "DB_PASSWORD=$DB_PASSWORD"
+
 nohup java \
   -Dspring.profiles.active=prod \
   -DDB_URL=$DB_URL \

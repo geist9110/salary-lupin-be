@@ -4,12 +4,17 @@ APP_DIR=/home/ec2-user/app
 LOG_DIR=$APP_DIR/logs
 JAR_PATH=$APP_DIR/app.jar
 
-ENV=$(aws ec2 describe-tags \
-  --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" \
-  --region ap-northeast-2 \
-  | jq -r '.Tags[] | select(.Key=="env") | .Value')
+echo "===== START SCRIPT ====="
 
-echo "ENVIRONMENT DETECTED: $ENV"
+INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+echo "INSTANCE ID: $INSTANCE_ID"
+
+aws ec2 describe-tags \
+  --region ap-northeast-2 \
+  --filters "Name=resource-id,Values=$INSTANCE_ID" "Name=key,Values=env" \
+  --query "Tags[0].Value" --output text
+
+echo "ENVIRONMENT: $ENVIRONMENT"
 
 PARAM_PREFIX="/salary-lupin/${ENV}"
 

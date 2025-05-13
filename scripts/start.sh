@@ -18,7 +18,7 @@ ENV=$(aws ec2 describe-tags \
 
 echo "ENVIRONMENT: $ENV"
 
-PARAM_PREFIX="/salary-lupin/${ENV}"
+PARAM_PREFIX="/salarylupin/${ENV}"
 
 DB_URL=$(aws ssm get-parameter \
   --name "$PARAM_PREFIX/DB_URL" \

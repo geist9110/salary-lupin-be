@@ -10,6 +10,6 @@ public class MagicBookService {
     private final MagicBookAnswerRepository magicBookAnswerRepository;
 
     public MagicBookResponseDTO getRandomAnswer() {
-        return new MagicBookResponseDTO(magicBookAnswerRepository.findRandomAnswer().answer);
+        return new MagicBookResponseDTO(magicBookAnswerRepository.findRandomAnswer().getAnswer());
     }
 }

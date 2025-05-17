@@ -18,7 +18,7 @@ public class MagicBookAnswerEntity {
     private int id;
 
     @Getter
-    String answer;
+    private String answer;
 
     public MagicBookAnswerEntity(String answer) {
         this.answer = answer;

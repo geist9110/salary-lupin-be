@@ -35,7 +35,7 @@ SECRET_JSON=$(aws secretsmanager get-secret-value \
   --query SecretString \
   --output text)
 
-ORIGIN=$(aws ssm get-parameter \
+ORIGINS=$(aws ssm get-parameter \
   --name "$PARAM_PREFIX/ORIGIN" \
   --with-decryption \
   --query "Parameter.Value" \
@@ -44,13 +44,13 @@ ORIGIN=$(aws ssm get-parameter \
 DB_USERNAME=$(echo "$SECRET_JSON" | jq -r .username)
 DB_PASSWORD=$(echo "$SECRET_JSON" | jq -r .password)
 
-echo "Environment : $ENV)"
-echo "Origin : $ORIGIN"
+echo "Environment : $ENV"
+echo "Origin : $ORIGINS"
 
 nohup java \
   -Dspring.profiles.active=prod \
   -DDB_URL="$DB_URL" \
   -DDB_USERNAME="$DB_USERNAME" \
   -DDB_PASSWORD="$DB_PASSWORD" \
-  -DDB_ORIGIN="$ORIGIN" \
+  -DORIGINS="$ORIGINS" \
   -jar $JAR_PATH > $LOG_DIR/app.log 2>&1 &

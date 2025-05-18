@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PID=$(pgrep -f 'java -jar')
+JAR_PATH=/home/ec2-user/app/app.jar
+PID=$(pgrep -f "$JAR_PATH")
+
 if [ -n "$PID" ]; then
   echo "Killing process $PID"
   kill -15 $PID

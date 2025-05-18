@@ -1,7 +1,6 @@
 #!/bin/bash
 
-JAR_PATH=/home/ec2-user/app/app.jar
-PID=$(pgrep -f "$JAR_PATH")
+PID=$(lsof -ti tcp:8080)
 
 if [ -n "$PID" ]; then
   echo "Killing process $PID"

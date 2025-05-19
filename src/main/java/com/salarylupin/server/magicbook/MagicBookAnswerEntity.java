@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -16,11 +17,8 @@ public class MagicBookAnswerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    String answer;
-
-    public String getAnswer() {
-        return answer;
-    }
+    @Getter
+    private String answer;
 
     public MagicBookAnswerEntity(String answer) {
         this.answer = answer;

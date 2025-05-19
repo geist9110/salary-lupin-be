@@ -16,8 +16,6 @@ ENV=$(aws ec2 describe-tags \
   --query "Tags[0].Value" \
   --output text)
 
-echo "ENVIRONMENT: $ENV"
-
 PARAM_PREFIX="/salarylupin/${ENV}"
 
 DB_URL=$(aws ssm get-parameter \
@@ -37,16 +35,22 @@ SECRET_JSON=$(aws secretsmanager get-secret-value \
   --query SecretString \
   --output text)
 
+ORIGINS=$(aws ssm get-parameter \
+  --name "$PARAM_PREFIX/ORIGIN" \
+  --with-decryption \
+  --query "Parameter.Value" \
+  --output text)
+
 DB_USERNAME=$(echo "$SECRET_JSON" | jq -r .username)
 DB_PASSWORD=$(echo "$SECRET_JSON" | jq -r .password)
 
-echo "DB_URL=$DB_URL"
-echo "DB_USERNAME=$DB_USERNAME"
-echo "DB_PASSWORD=$DB_PASSWORD"
+echo "Environment : $ENV"
+echo "Origin : $ORIGINS"
 
 nohup java \
   -Dspring.profiles.active=prod \
-  -DDB_URL=$DB_URL \
-  -DDB_USERNAME=$DB_USERNAME \
-  -DDB_PASSWORD=$DB_PASSWORD \
+  -DDB_URL="$DB_URL" \
+  -DDB_USERNAME="$DB_USERNAME" \
+  -DDB_PASSWORD="$DB_PASSWORD" \
+  -DORIGINS="$ORIGINS" \
   -jar $JAR_PATH > $LOG_DIR/app.log 2>&1 &

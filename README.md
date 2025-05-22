@@ -141,7 +141,7 @@ docker run -d --name EC2_SalaryLupinServer \
 
 #### AWS CodeDeploy
 
-빌드 아티팩트를 EC2 인스턴스에 복사하며 배포 과정을 관리합니다.
+빌드 아티팩트를 EC2 인스턴스에 복사하며 배포 과정을 관리합니다. \
 `appspec.yml`은 배포 수명 주기 훅(Lifecycle Hooks)을 정의하여 자동화된 배포를 수행합니다.
 
 1. `ApplicationStop` \

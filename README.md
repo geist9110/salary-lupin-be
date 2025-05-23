@@ -6,13 +6,13 @@
 
 <br>
 
-## ⚙️ 프로젝트 개요
+## ✨ 프로젝트 개요
 
 본 레포지토리는 Salary Lupin 애플리케이션의 백엔드를 담당하는 **Spring Boot 기반의 REST API 서버**입니다.
 
-[프론트엔드 레포지토리](https://github.com/geist9110/salary-lupin-fe)
-와 [인프라 레포지토리](https://github.com/geist9110/salary-lupin-infra)는 별도의 저장소에서 관리됩니다. 백엔드 서버는 해당 인프라 위에서
-동작하며, 프론트엔드와 **HTTP 통신**을 통해 데이터를 주고받습니다.
+[프론트엔드](https://github.com/geist9110/salary-lupin-fe)
+와 [인프라](https://github.com/geist9110/salary-lupin-infra)는 별도의 저장소에서 관리됩니다. \
+백엔드 서버는 해당 인프라 위에서 동작하며, 프론트엔드와 **HTTP 통신**을 통해 데이터를 주고받습니다.
 
 <details>
 <summary>디렉토리 설명</summary>

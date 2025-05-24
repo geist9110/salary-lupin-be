@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    SPRING_PROFILES_ACTIVE: prod
+    DB_URL: ""
+    DB_USERNAME: ""
+    DB_PASSWORD: ""
+    ORIGINS: ""
+
+phases:
+  install:
+    java: "corretto21"
+
+  build:
+    commands:
+      - chmod +x ./gradlew
+      - ./gradlew build
+
+  post_build:
+    commands:
+      - mkdir -p output
+      - cp build/libs/*.jar output/app.jar
+
+artifacts:
+  files:
+    - output/app.jar
+    - scripts/**/*
+    - appspec.yml

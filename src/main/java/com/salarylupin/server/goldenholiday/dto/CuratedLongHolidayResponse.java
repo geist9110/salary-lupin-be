@@ -2,7 +2,7 @@ package com.salarylupin.server.goldenholiday.dto;
 
 import java.time.LocalDate;
 
-public record CuratedLongHolidayDTO(
+public record CuratedLongHolidayResponse(
     LocalDate startDate,
     LocalDate endDate
 ) {
